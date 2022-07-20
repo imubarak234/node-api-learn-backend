@@ -37,12 +37,41 @@ let server = http.createServer(function(req, res) {
   req.on('end', function(){
     buffer += decoder.end();
 
+    // Choose the handler this request should go to. if one is not found use the not found hanler
+    let ChoosenHandler = typeof(router[trimmedPath]) != 'undefined' ? router[trimmedPath] : handlers.notFound;
 
-    // Send the response
-    res.end('Hello World \n');
+    // Construct the data object to send to the handler
+    let data = {
+      'trimmedPath' : trimmedPath,
+      'queryStringObject' : queryStringObject,
+      'method' : method,
+      'headers' : headers,
+      'payload' : buffer
+    };
 
-    // Log the request path
-    console.log('Request recived wuth this payload: ', buffer);
+    // Route the request to the hanler specified in the router
+    ChoosenHandler(data, function(statusCode,payload){
+
+      // Use the status code called back by the handler, or default to 200
+      statusCode = typeof(statusCode) == 'number' ? statusCode : 200;
+
+      //USe the payload called back by the handler, or default to an empty onject
+      payload = typeof(payload) == 'object' ? payload : {};
+
+      // Covert the payload to string
+      let payloadString = JSON.stringify(payload);
+
+      // Return the reponse
+      res.writeHead(statusCode);
+      res.end(payloadString);
+
+      // Log the request path
+      console.log('Returning this responses: ', statusCode, payloadString);
+    });
+
+
+
+    
 
   });
 
@@ -54,3 +83,23 @@ let server = http.createServer(function(req, res) {
 server.listen(3000, function() {
   console.log("The server is listening on port 3000 now");
 });
+
+//Define the handlers
+let handlers = {};
+
+// Sample handler
+handlers.sample = function(data, callback){
+  // Callback a http status code, and a payload object
+  callback(406, {'name' : 'sample handler'});
+};
+
+// Not found handler
+handlers.notFound = function(data, callback){
+  callback(404);
+};
+
+
+// Define a request router
+let router = {
+  'sample' : handlers.sample,
+};
