@@ -5,9 +5,9 @@
 //Dependencies
 const http = require('http');
 const https = require('https')
-// const { StringDecoder } = require('string_decoder');
+const { StringDecoder } = require('string_decoder');
 const url = require('url');
-const stringDecoder = require('string_decoder').StringDecoder;
+//const stringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
 const fs = require('fs');
 
@@ -110,11 +110,9 @@ let unifiedServer = function(req, res){
 //Define the handlers
 let handlers = {};
 
-// Sample handler
-handlers.sample = function(data, callback){
-  // Callback a http status code, and a payload object
-  callback(406, {'name' : 'sample handler'});
-};
+handlers.ping = function(data, callback){
+  callback(200);
+}
 
 // Not found handler
 handlers.notFound = function(data, callback){
@@ -124,5 +122,5 @@ handlers.notFound = function(data, callback){
 
 // Define a request router
 let router = {
-  'sample' : handlers.sample,
+  'ping' : handlers.ping,
 };
