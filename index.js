@@ -120,10 +120,6 @@ let unifiedServer = function(req, res){
       console.log('Returning this responses: ', statusCode, payloadString);
     });
 
-
-
-    
-
   });
 };
 
@@ -131,4 +127,5 @@ let unifiedServer = function(req, res){
 // Define a request router
 let router = {
   'ping' : handlers.ping,
+  'users' : handlers.users
 };
