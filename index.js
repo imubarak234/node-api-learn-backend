@@ -8,9 +8,10 @@ const https = require('https')
 const { StringDecoder } = require('string_decoder');
 const url = require('url');
 //const stringDecoder = require('string_decoder').StringDecoder;
-const config = require('./config');
+const config = require('./lib/config');
 const fs = require('fs');
 const handlers = require('./lib/handlers');
+const helpers = require('./lib/helpers');
 // const _data = require('./lib/data');
 
 
@@ -96,7 +97,7 @@ let unifiedServer = function(req, res){
       'queryStringObject' : queryStringObject,
       'method' : method,
       'headers' : headers,
-      'payload' : buffer
+      'payload' : helpers.parseJsonToObject(buffer),
     };
 
     // Route the request to the hanler specified in the router
