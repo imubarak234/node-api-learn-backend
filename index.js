@@ -17,7 +17,7 @@ const helpers = require('./lib/helpers');
 /**
  * @TODO GET RID OF THIS
  */
-helpers.sendTwilioSms('4158375309', 'Hello!', function(err){
+helpers.sendTwilioSms('+2348091902743', 'Hello!', function(err){
   console.log('this was the error', err);
 });
 
