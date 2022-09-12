@@ -1,1 +1,1 @@
-{"id":"1dnm6sdhzrjpcbefzgtd","userPhone":"5367472839","protocol":"https","url":"yahoo.com","method":"get","successCodes":[200,201],"timeoutSeconds":3}
+{"id":"1dnm6sdhzrjpcbefzgtd","userPhone":"+2348091902743","protocol":"https","url":"yahoo.com","method":"get","successCodes":[200,201,301,302],"timeoutSeconds":3,"state":"down","lastChecked":1662993580853}
