@@ -1,5 +1,5 @@
 # Node-Api-Learn
-Repo form lessons from my Node.JS studies
+Repo for lessons from my Node.JS studies
 
 ## Tools
 - Javascript
